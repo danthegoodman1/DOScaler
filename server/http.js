@@ -24,11 +24,11 @@ if (!fs.existsSync('key.pem') && !fs.existsSync('cert.pem')) {
     server: exports.server
   })
   exports.server.on('upgrade', (req, socket, head) => {
-    const { token } = querystring.parse(req.url.replace('/?', ''))
-    jwt.verify(token, jwtsecret, (err, decoded) => {
-      if (err) {
-        socket.destroy()
-      }
-    })
+    // const { token } = querystring.parse(req.url.replace('/?', ''))
+    // jwt.verify(token, jwtsecret, (err, decoded) => {
+    //   if (err) {
+    //     socket.destroy()
+    //   }
+    // })
   })
 }
