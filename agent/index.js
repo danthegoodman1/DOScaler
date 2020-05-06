@@ -1,18 +1,25 @@
 const Websocket = require('ws')
+const UsageMonitor = require('./usage')
 
 const ws = new Websocket('wss://localhost:4433/', {
   rejectUnauthorized: false
 })
 
+const um = new UsageMonitor()
+
 ws.on('open', () => {
-  setInterval(() => {
-    console.log('Sending...')
-    ws.send('something')
-  }, 1000)
+  um.on('statUpdate', (stats) => {
+    console.log(stats)
+    ws.send(JSON.stringify({
+      event: 'statUpdate',
+      data: stats,
+      sendTime: new Date().getTime()
+    }))
+  })
 })
 
 ws.on('message', (data) => {
-  console.log(data)
+
 })
 
 ws.on('error', (error) => {
