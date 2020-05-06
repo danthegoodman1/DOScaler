@@ -1,5 +1,6 @@
 const Websocket = require('ws')
 const UsageMonitor = require('./usage')
+const os = require('os')
 
 const ws = new Websocket('wss://localhost:4433/', {
   rejectUnauthorized: false
@@ -13,7 +14,8 @@ ws.on('open', () => {
     ws.send(JSON.stringify({
       event: 'statUpdate',
       data: stats,
-      sendTime: new Date().getTime()
+      sendTime: new Date().getTime(),
+      agentID: os.hostname()
     }))
   })
 })
