@@ -2,7 +2,6 @@ const EventEmitter = require('events').EventEmitter
 const os = require('os')
 const _os = require('os-utils')
 class UsageMonitor extends EventEmitter {
-
   constructor () {
     super()
     this.stats = {}
@@ -13,7 +12,7 @@ class UsageMonitor extends EventEmitter {
         this.stats.cpuUsage = value
         this.emit('statUpdate', this.stats)
       })
-    }, 5000)
+    }, 3000)
   }
 
   getCPU (cb) {
